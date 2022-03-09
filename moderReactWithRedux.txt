@@ -1,0 +1,339 @@
+Course https://www.udemy.com/course/react-redux/ 
+
+Seção 1
+  Aula 4 e 5
+    import "./styles.css";
+    import React, { useState } from "react";
+    import Field from "./components/field";
+    import Languages from "./components/languages";
+    import Translate from "./components/translate";
+
+    export default function App() {
+      const [language, setLanguage] = useState('ru');
+      const [text, setText] = useState('');
+
+      return (
+        <div>
+          <Field label="Enter English" onChange={setText} value={text} />
+          <Languages language={language} onLanguageChange={setLanguage} />
+          <hr />
+          <Translate text={text} language={language }/>
+        </div>
+      );
+    }
+
+    - A função App é um componente React, que manipula os eventos dos usuários E produz código JSX. JSX é um conjunto de instruções que informa ao React qual conteudo nós queremos apresentar na tela, seja tag html (div, span, hr, input) ou componentes react(Field, Translate, Languages)
+    - React é a biblioteca para trabalhar com os componentes e seus comportamentos, estados.
+    - ReactDOM é a biblioteca para trabalhar com a apresentação do html, transaformando JSX em HTML
+
+  AULA 08/09
+    Install crate-react-app
+      npm install -g create-react-app
+      create-react-app nomeAplicacao
+      
+      OU
+
+      Os dois comandso acima podem ser unificados em apenas um:
+        npx create-react-app nomeAplicacao
+    
+        OBS: o detalhe sobre os comandos acima é que eles instalam mais de 1mil pacotes de dependência para um projeto ReactJS. Isso se acontece devido a necessidade do código javascript precisar ser compilado para uma versão chamada Ecma Script 5(ES5). Está versão do javascript é aceita por todos os browsers.
+
+##INICIO projeto season
+Seção 03 - Communicanting with Props
+  AULA 27 - Projeto 'season'
+  AULA 28 - Semantic-ui CDN
+  Aula 31 - Faker library
+  AULA 36,37,38,42 - Props
+    É a maneira do React passar informações de um componente pai para os componentes internos (nested components/child components). Também é utilizado para controlar o comportamento do componente filho:
+      1-  Exemplo de props como sendo propriedade ('autor') de uma tag:
+        <CommentDetail author="Rudi" />
+
+        Para acessar as props:
+          const CommentDetail = (props) => {
+            ...<div className='content'>
+                  console.log(props)
+               </div>
+
+      2- Exemplo de props como sendo uma tag interna(CommentDetail):
+         <ApprovalCard>
+            <CommentDetail author="Rudi" />
+         </ApprovalCard>
+
+        Para acessar as props:
+          const ApprovalCard = (props) => {  
+          ...<div className='content'>
+                {props.children}
+             </div>
+
+Seção 04 - Class-based components
+  AULA 48 - Funcion x Class Components
+    - Function Components
+      - Podemos criar código JSX para apresentar conteúdo na tela
+      - Criação, exemplo:
+          const SeasonDisplay = () => {}
+          ....
+          export default SeasonDisplay;
+    - Class Componenents
+      - Podemos criar código JSX para apresentar conteúdo na tela
+      - Criação, exemplo
+        - class SeasonDisplay extends React.Component{ 
+            constructor(props){
+              super(props);
+            }
+          }
+          ....
+          export default SeasonDisplay;
+      - Podemos utiizar métodos do ciclo de vida (ou Hooks) para executar códigos em momentos específicos
+      - Podemos utilizar o 'estado' do aplicação (ou Hooks) para atualizar conteúdo na tela;
+      MUST:
+        Devem ser classes javascript
+        Devem extander a classe React.Component
+        Devem definir o método render, que retornará algum código JSX
+
+    - Os Hooks são Function Components utilizamos para inserir funcionalidade/código em determinados momentos da execução do programa.
+    - É mais fácil seguir o seguinte caminho de aprendizagem:
+      - Class-Components -> Hooks -> Redux
+
+  AULA 49 - Desafio: Seasons   
+      Descobrir:
+        - localização do usuário
+        - o mês atual
+        - alterar conteúdo baseado na loalização e mês atual
+
+Seção 05 - State in react components
+  AULA 55 - The rules of react State
+    O State é utilizado de forma mais simples para Class-Components
+    State é um objeto javascript com dados a serem apresentados em um componente
+    **A atualização do State causará a atualização automática do conteúdo na tela
+    State deve ser inicializado quando o componente é criado
+    **State somente pode ser atualizado com a função setState
+
+  AULA 60 - Handling errors
+    Dica: atualize o state, com um novo atributo 'errorMessage'
+  
+  **AULA 61 - Conditionally Rendering Contect
+
+Seção 06
+  AULA 62 - Introducing Components Lifecycle methods
+    São métodos executados em momentos específicos do ciclo de vida de um componente.
+    A ordem de execução é a seguinte:
+      1 constructor
+      2 render 
+      (componente está visível na tela)
+      3 componentDidMount - executado apenas 1 vez, extamente após o componente ser montado
+      (aguardando atualizações do State)
+      4 componentDidUpdate - executado após casa atualização do componente
+      (aguardando componente não ser apresentado)
+      5 componentWillUnmount
+
+    Métodos raramente utilizados:
+      shouldComponentUpdate
+      getDerivedStateFromProps
+      getSnapshotBeforeUpdate
+
+  AULA 68 - Ternary Expression in JSX
+    Não é boa prática utilizar código abaixo:
+      <div>{season == 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach'}</div>
+
+    O recomendado é extrair a lógica para uma váriável javascript:
+      const text = season == 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach';
+    E então utilizar no JSX:
+      <div>{text}</div>
+
+  AULA 70 - Show icons
+    Trabalhando com string template: {`${icon} icon`}
+
+    const SeasonDisplay = (props) => {
+      ....
+      const icon = season == 'winter' ? 'snowflake' : 'sun';
+      ....
+      return (
+          ....
+          <div>
+            ...
+            <i className={`${icon} icon`} />
+            ....
+          </div>
+
+  AULA 71 - Config Objects
+    Boa prática para criar um objeto com propiedades a serem apresentadas.
+    Neste exemplo, as propriedades são diferentes dependendo da estação/season:
+      const seasonConfig = {
+        summer: {
+          text: "Let's hit the beath",
+          iconName: 'sun'
+        },
+        winter: {
+          text: "Burr, it is chilly",
+          iconName: 'snowflake'}
+      }
+
+      const {text, iconName} = seasonConfig[season];
+      ......
+      return (
+        <>
+          <div>
+            <i className={`${iconName} icon`} />
+              <h1>{text}</h1>
+            <i className={`${iconName} icon`} />
+          </div>
+
+  AULA 72 - Styling with css              
+  AULA 74 - Default props
+      Devemos criar um opjeto js, com o 'Nome do componente.defaultProps'. E adicionar as props com seus valores default. Desta forma, caso o componete seja reutilizado sem receber o valor de alguma props, o react apresentará o valor default. Exemplo
+
+
+      :
+        Spinner.defaultProps = {
+          message: 'Loading...'
+        }
+
+  AULA 75 - Avoiding Conditionals in Render
+    Podemos utilizar uma função helper, que contenha a lógica da apresentação. E então, o render() conterá apenas o resultado final. Exemplo:
+      render (){
+        return (
+          <div className='border red'>
+            {this.helperRenderContent()}
+          </div>
+        )
+      }
+  AULA 76 - REVIEW
+##FIM projeto season
+
+##INICIO projeto pics
+Seção 07 - Handle User Input with Forms and Events
+  AULA 79 - Overview, projeto 'pics'
+    - Como tratar ações do usuário?
+    - Como carregar dados de uma API ou servidor?
+    - Como aprensentar listagem?
+    Versão 1
+      Apenas um campo de busca, para submeter requisição a uma API e retornar uma lista de imagens
+    Versão 2
+      Similar a versão 1, porém, agora com as imagens sendo apresentadas em toda a tela, em colunas, mas ainda com listagem/barra de rolagem
+  
+  AULA 84 - Event Handler
+    - Criar uma função para tratar o evento. Por exemplo, em nos campos de texto podem ser onClick, onChange, onSubimit
+        onInputChange(event){
+          console.log(event.target.value)
+        }
+    - No input, adicionar a propridade onChange:
+        <input type='text' onChange={this.onInputChange}></input>
+      - OBS: note o uso do nome da função sem os parênteses. Assim, ela será executada somente quando o usuário alterar o conteúdo do campo de texto.
+      SE adicionar o parenteses 'onInputChange()', então a função será executada toda vez que o render() for executado.
+    - Alguns Tipos de Handle Events
+      - onClick para <input>, <button>, select options, radio buttons
+      - onSubmit, para <form>
+      - onChange para <input>, select options, radio buttons
+  
+  AULA 86 - Controlled Component
+    - São elementos do DOM que utilizam o 'state', por exemplo, um <input> com seu 'value' apontando para o 'state': value={this.state.name}
+    A informação não se encontra no elemento input do html. A informação se encontra dentro do 'state' do componente. Ou seja, não guardamos a informação diretamente dentro do DOM.
+  
+  ***AULA 91, 92*** - Understanding 'this' in javascript
+    - Resolvendo o problema de undefined relacionado ao 'this':
+      Opção 1: utilizar arrow function NO HTML: 
+          <form .... onSubmit={(e) => this.onFormSubmit(e)}>
+        e no javascript,
+          onFormSubmit(event){
+            event.preventDefault()
+            console.log(this.state.term)
+          }  
+
+      Opção 2: utilizar arrow function NO JAVASCRIPT:
+          <input.... onClick={this.onInputClick} .... />
+        e no javascript
+          onInputClick = (event) => {
+            console.log('onInputClick')
+          }
+
+Seção 08 - API Requests with React
+  **AULA 96 - Axios
+    npm -i --save axios
+
+    Request Example:
+      onFormSubmit(term){
+        axios.get('https://api.unsplash.com/search/photos', {
+          params:{query: term},
+          headers: {
+            Authorization: 'Client-ID 3k9k_QumOagl1QOrobB0uO1BZJFID_DbK2HFBdwvfPc'
+          }
+        })
+      }      
+
+      render(){
+        return (
+          <div className='ui container' style={{marginTop: '10px'}}>
+            <SearchBar AppJsOnSubmit={this.onFormSubmit}/>
+          </div>
+        )
+      }
+
+  **AULA 98,99,100 - Async Await;then()
+    Há 3 formas de obter a reposta da requisição: 
+      1 - A função de callback 'then()'
+        axios.get(url, {...}).then( reponse => {console.log(response)})
+
+      2- async await com arrow function
+        onFormSubmit = async (term) => {
+          const response = await axios.get(url, {...});
+          
+          console.log(response)
+
+        }  
+
+      3 - async await, sem arrow function
+        async onFormSubmit(term){
+          const response = await axios.get(url, {...});
+          
+          console.log(response)
+
+        }
+
+  **AULA 101 - Clients API customizadas
+    Vamos isolar a chamada da API unsplash em um arquivo js, deixando os atritudos básicos/default setados
+    unsplash.js
+      import axios from 'axios' 
+
+      export default axios.create({
+        baseURL: 'https://api.unsplash.com',
+        headers: {
+          Authorization: 'Client-ID 3k9k_QumOagl1QOrobB0uO1BZJFID_DbK2HFBdwvfPc'
+        }
+      })
+
+Seção 09 e Seção 10 - Listagem
+  AULA 103 - Revisão sobre Map em JS
+    const numbers = [0,1,2,3,4];
+    
+    //Opção 1 - multiplicar com for
+      let newNumbers = [];
+      for(let i = 0; i < number.length; i++){
+        newNumbers.push(numbers[i] * 10);
+      }
+      console.log(newNumbers); //0,10,20,30,40
+      console.log(numbers);    //0,1,2,3,4
+
+    //Opção 2 - Utilizando map
+    //Uma operação com map terá o mesmo resultado que acima: o map original não será alterado. E teremos um novo map com os valores novos.
+      numbers.map( (num) => {
+        return num * 10;
+      })
+
+  AULA 104 - Listando imagens na tela
+  ImageList.js
+    const ImageList = (props) => {
+      const imagesURL = props.images.map( image => {
+        return <div key={image.id}>
+          <img alt={image.alt_description} src={image.urls.regular} />
+        </div>
+      })
+      return <div>{imagesURL}</div>
+    }
+    export default ImageList;  
+        
+  Seção 10 - Utilizando Ref para acessar DOM  
+    AULA 109 ate 115
+##FIM projeto pics
+
+##INICIO projeto youtube
+Seção 11
