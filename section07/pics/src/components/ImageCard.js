@@ -14,7 +14,7 @@ class ImageCard extends React.Component{
 		
 	}
 
-	setSpans = () => {
+	setSpans = () => {//Seção 09 e Seção 10 - Listagem
 		const height = this.imageReference.current.clientHeight;
 		const cssGridAutoRowsPixels = 10;
 		

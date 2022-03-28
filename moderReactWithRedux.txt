@@ -337,3 +337,7 @@ Seção 09 e Seção 10 - Listagem
 
 ##INICIO projeto youtube
 Seção 11
+  AULA 117 - review app youtube
+
+
+  az aks get-credentials -n AKS-BANESE -g RG-AKS-BANESE-DIGITAL
