@@ -73,8 +73,9 @@ Seção 04 - Class-based components
           const SeasonDisplay = () => {}
           ....
           export default SeasonDisplay;
+
     - Class Componenents
-      - Podemos criar código JSX para apresentar conteúdo na tela
+      - Também podemos criar código JSX para apresentar conteúdo na tela
       - Criação, exemplo
         - class SeasonDisplay extends React.Component{ 
             constructor(props){
@@ -83,14 +84,14 @@ Seção 04 - Class-based components
           }
           ....
           export default SeasonDisplay;
-      - Podemos utiizar métodos do ciclo de vida (ou Hooks) para executar códigos em momentos específicos
-      - Podemos utilizar o 'estado' do aplicação (ou Hooks) para atualizar conteúdo na tela;
-      MUST:
+      ****- Podemos utilizar o 'estado' da aplicação (ou Hooks) para atualizar conteúdo na tela;
+      ***- Podemos utiizar métodos do ciclo de vida (ou Hooks) para executar códigos em momentos específicos
+      ***MUST:
         Devem ser classes javascript
-        Devem extander a classe React.Component
+        Devem extender a classe React.Component
         Devem definir o método render, que retornará algum código JSX
 
-    - Os Hooks são Function Components utilizamos para inserir funcionalidade/código em determinados momentos da execução do programa.
+    - Os Hooks são Function Components utilizados para inserir funcionalidade/código em determinados momentos da execução do programa.
     - É mais fácil seguir o seguinte caminho de aprendizagem:
       - Class-Components -> Hooks -> Redux
 
@@ -248,7 +249,7 @@ Seção 07 - Handle User Input with Forms and Events
 
 Seção 08 - API Requests with React
   **AULA 96 - Axios
-    npm -i --save axios
+    npm install --save axios
 
     Request Example:
       onFormSubmit(term){
@@ -337,7 +338,61 @@ Seção 09 e Seção 10 - Listagem
 
 ##INICIO projeto youtube
 Seção 11
-  AULA 117 - review app youtube
+  AULA 116 - Design component
+    Representação:
+      App.js  -> SearchBar.js
+              -> VideoDetail.js
+              -> VideoList.js -> VideoItem.js
 
+    Criando projeto
+      create-react-app videos
+  AULA 117 - Criando App.js e SearchBar.js
+  Aula 121 - Searching for videos
+    Criando youtube.js para fazer a REQUEST
+  Aula 122 - Acessing Youtube API 
+  Aula 127 - Passando state como sendo props
+    Componenetes VideoList.js receberá o a variavel 'videos', que está no state do App.js.
+      <VideloList videos={this.state.videos}/>
 
-  az aks get-credentials -n AKS-BANESE -g RG-AKS-BANESE-DIGITAL
+      Representação:
+        App.js  -> SearchBar.js
+                -> VideoDetail.js
+                -> VideoList.js -> VideoItem.js
+
+  Aula 128 - VideoItem -> VideoList -> App
+    Nested Callbacks
+      Passando informação do componenete filho(VideoItem) para o pai(App), com callback:
+        return (
+          <div onClick={() => props.onVideoSelect(props.video)} className="video-item item">
+          ...
+  
+  Aula 129 - Renderização condicional
+    import React from "react";
+
+    const VideoDetail = ({video}) => {
+      //video = props.video
+      
+      if(!video){
+        return <div>Loading...</div>  
+      }
+
+      return (
+        <div>{video.snippet.title}</div>
+      )
+    };
+
+    export default VideoDetail;
+
+  Aula 130 - Css - Styling VideoDetails
+    Adicionando uma caixa de texto abaixo do vídeo, com a descrição do video
+
+  Aula 131 - Apresentando o video
+    <iframe>
+
+  Aula 132 - Ajuestes no layout
+    Utilizando 
+          <div className="ui grid">
+            <div className="ui row">
+            
+Seção 12 - Hooks in React
+  Aula 134
