@@ -22,7 +22,7 @@ Seção 1
       );
     }
 
-    - A função App é um componente React, que manipula os eventos dos usuários E produz código JSX. JSX é um conjunto de instruções que informa ao React qual conteudo nós queremos apresentar na tela, seja tag html (div, span, hr, input) ou componentes react(Field, Translate, Languages)
+    - A função App é um componente React, que manipula os eventos dos usuários E produz código JSX. JSX é um conjunto de instruções que informa ao React qual conteudo nós queremos apresentar na tela, seja tag html (div, span, hr, input) ou componentes react(Field, Translate, Languages). JSX é código html retornado por funções.
     - React é a biblioteca para trabalhar com os componentes e seus comportamentos, estados.
     - ReactDOM é a biblioteca para trabalhar com a apresentação do html, transaformando JSX em HTML
 
@@ -34,12 +34,39 @@ Seção 1
       OU
 
       Os dois comandso acima podem ser unificados em apenas um:
-        npx create-react-app nomeAplicacao
+      -->  npx create-react-app nomeAplicacao
     
-        OBS: o detalhe sobre os comandos acima é que eles instalam mais de 1mil pacotes de dependência para um projeto ReactJS. Isso se acontece devido a necessidade do código javascript precisar ser compilado para uma versão chamada Ecma Script 5(ES5). Está versão do javascript é aceita por todos os browsers.
+        OBS: o detalhe sobre os comandos acima é que eles instalam mais de 1mil pacotes de dependência para um projeto ReactJS. Isso so acontece devido a necessidade do código javascript precisar ser compilado para uma versão chamada Ecma Script 5(ES5). Está versão do javascript é aceita por todos os browsers.
+
+Seção 02 - 05/01/2023
+  AULA 10 - Showing Baisc Content
+  São 5 passos básicos
+  //1) Import the React and ReactDOM libraries
+    import React from 'react'
+    import ReactDOM from 'react-dom/client'
+  //2) Get a reference to the div with ID root
+    const el = document.getElementById('root');
+  //3) Tell React to take control of that element
+    const root = RectDOM.createRoot(el);
+  //4) Create a component
+    function App(){
+      return <h1>Hi there</h1>;
+    }
+  //5) Show the component on the screen
+    root.render(<App />);
+
+  AULA 19,20,21 - Styling in JSX - 06/01/2023
+    1) All prop name follow camelCase
+    2) Number attributes use curly braces
+    3) Boolean 'true' can be written with just the property name. 'False' should be written with curly braces
+    4) The 'class' attribute from HTML is written as 'className' in JSX
+    5) In-line styles are provided as objects
+
+  AULA 23 - Planilha resumo
+    https://jsx-notes.vercel.app/
 
 ##INICIO projeto season
-Seção 03 - Communicanting with Props
+Seção 03 - Communicanting with Props - 2022
   AULA 27 - Projeto 'season'
   AULA 28 - Semantic-ui CDN
   Aula 31 - Faker library
@@ -49,10 +76,15 @@ Seção 03 - Communicanting with Props
         <CommentDetail author="Rudi" />
 
         Para acessar as props:
+          1)
           const CommentDetail = (props) => {
             ...<div className='content'>
                   console.log(props)
                </div>
+          2)
+          function CommentDetail(props) {
+            return <div>{props.author}</div>
+          }
 
       2- Exemplo de props como sendo uma tag interna(CommentDetail):
          <ApprovalCard>
